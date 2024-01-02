@@ -4,10 +4,30 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+import Swal from "sweetalert2";
+window.Swal = Swal.mixin({
+  reverseButtons: true,
+  allowOutsideClick: false,
+});
+
+window.Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
+window.access_token = localStorage.getItem("access_token");
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
