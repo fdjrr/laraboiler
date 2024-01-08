@@ -4,7 +4,7 @@
       <h2 class="h2 text-center mb-4">Login to your account</h2>
       <form action="{{ route('api.v1.auth.login') }}" method="POST" id="formLogin" autocomplete="off" novalidate>
         <div class="mb-3">
-          <label class="form-label required">Email address</label>
+          <label class="form-label required">Email Address</label>
           <input type="email" name="email" class="form-control" placeholder="your@email.com" autocomplete="off" required>
         </div>
         <div class="mb-3">

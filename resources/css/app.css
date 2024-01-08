@@ -1,3 +1,8 @@
 .avatar {
   box-shadow: none;
 }
+
+.litepicker .container__months {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

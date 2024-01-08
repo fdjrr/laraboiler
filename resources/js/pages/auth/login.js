@@ -1,4 +1,4 @@
-import { login } from "@/src/auth.src";
+import {login} from "@/src/auth.src";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const formLogin = document.querySelector("#formLogin");
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         event.preventDefault();
 
         const password = formLogin.password;
-        if (password.type == "password") {
+        if (password.type === "password") {
           password.type = "text";
         } else {
           password.type = "password";

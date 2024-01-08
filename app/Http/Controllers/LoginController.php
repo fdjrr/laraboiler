@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Throwable;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class LoginController extends Controller
 {
@@ -42,7 +42,7 @@ class LoginController extends Controller
         ])->setStatusCode(400);
       }
 
-      Auth::login($user);
+      Auth::login($user, $request->remember_me);
 
       return response()->json([
         'status'       => true,

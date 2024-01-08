@@ -1,9 +1,17 @@
-import { apiJson } from "@/libs/api";
+import {apiJson} from "@/libs/api";
 
-export const login = async (action, data) => {
+export const login = async (formAction, formData) => {
   try {
-    return await apiJson.post(action, data);
+    return await apiJson.post(formAction, formData);
   } catch (error) {
     return error.response.data;
   }
 };
+
+export const logout = async (formAction) => {
+  try {
+    return await apiJson.get(formAction);
+  } catch (error) {
+    return error.response.data;
+  }
+}
