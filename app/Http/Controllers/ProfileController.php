@@ -41,7 +41,7 @@ class ProfileController extends Controller
       if ($request->email != $user->email && User::where('email', $request->email)->exists()) {
         return response()->json([
           'status'  => false,
-          'message' => 'Email already exists',
+          'message' => 'Email already exists!',
         ])->setStatusCode(400);
       }
 

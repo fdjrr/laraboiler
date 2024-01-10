@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Entry;
 use App\Models\Permission;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
-use Throwable;
 
 class PermissionController extends Controller
 {
@@ -18,24 +18,16 @@ class PermissionController extends Controller
   {
     $permissions = Permission::latest()
       ->filter([
-        'search' => $request->search
+        'search' => $request->search,
       ])
       ->paginate($request->entry ?? 15)
       ->withQueryString();
 
     return view('pages.permissions.index', [
-      'title' => 'Data Permissions',
+      'title'       => 'Data Permissions',
       'permissions' => $permissions,
-      'entries' => Entry::all()
+      'entries'     => Entry::all(),
     ]);
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
   }
 
   /**
@@ -45,38 +37,38 @@ class PermissionController extends Controller
   {
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'guard_name' => 'required'
+        'name'       => 'required',
+        'guard_name' => 'required',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
-          'message' => $validator->errors()->first()
+          'status'  => false,
+          'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
       if (Permission::where('name', $request->name)->exists()) {
         return response()->json([
-          'status' => false,
-          'message' => 'Permission already exists!'
+          'status'  => false,
+          'message' => 'Permission already exists!',
         ])->setStatusCode(400);
       }
 
-      $permission = new Permission();
-      $permission->name = $request->name;
+      $permission             = new Permission();
+      $permission->name       = $request->name;
       $permission->guard_name = $request->guard_name;
       $permission->save();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Permission added successfully!',
-        'data' => $permission
+        'data'    => $permission,
       ])->setStatusCode(201);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -89,12 +81,12 @@ class PermissionController extends Controller
     try {
       return response()->json([
         'status' => true,
-        'data' => $permission
+        'data'   => $permission,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -105,8 +97,8 @@ class PermissionController extends Controller
   public function edit(Permission $permission)
   {
     return view('pages.permissions.edit', [
-      'title' => 'Edit Permission',
-      'permission' => $permission
+      'title'      => 'Edit Permission',
+      'permission' => $permission,
     ]);
   }
 
@@ -117,37 +109,37 @@ class PermissionController extends Controller
   {
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'guard_name' => 'required'
+        'name'       => 'required',
+        'guard_name' => 'required',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
-          'message' => $validator->errors()->first()
+          'status'  => false,
+          'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
       if ($request->name != $permission->name && Permission::where('name', $request->name)->exists()) {
         return response()->json([
-          'status' => false,
-          'message' => 'Permission already exists!'
+          'status'  => false,
+          'message' => 'Permission already exists!',
         ])->setStatusCode(400);
       }
 
-      $permission->name = $request->name;
+      $permission->name       = $request->name;
       $permission->guard_name = $request->guard_name;
       $permission->save();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Permission updated successfully!',
-        'data' => $permission
+        'data'    => $permission,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -159,15 +151,15 @@ class PermissionController extends Controller
   {
     try {
       $permission->delete();
-      
+
       return response()->json([
-        'status' => true,
-        'message' => 'Permission deleted successfully!'
+        'status'  => true,
+        'message' => 'Permission deleted successfully!',
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }

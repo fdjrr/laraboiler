@@ -8,19 +8,23 @@ use Illuminate\View\Component;
 
 class Select extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+  /**
+   * Create a new component instance.
+   */
+  public function __construct(
+    public string $name = '',
+    public string $class = '',
+    public string $required = 'false',
+    public string $multiple = 'false'
+  ) {
+    //
+  }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
-    {
-        return view('components.select');
-    }
+  /**
+   * Get the view / contents that represent the component.
+   */
+  public function render(): View|Closure|string
+  {
+    return view('components.select');
+  }
 }

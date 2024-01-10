@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
+use App\Models\Role;
 use App\Models\Entry;
 use App\Models\Permission;
-use App\Models\Role;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Throwable;
 
 class RoleController extends Controller
 {
@@ -26,19 +26,11 @@ class RoleController extends Controller
       ->withQueryString();
 
     return view('pages.roles.index', [
-      'title' => 'Data Roles',
-      'roles' => $roles,
+      'title'       => 'Data Roles',
+      'roles'       => $roles,
       'permissions' => Permission::all(),
-      'entries' => Entry::all(),
+      'entries'     => Entry::all(),
     ]);
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
   }
 
   /**
@@ -50,26 +42,26 @@ class RoleController extends Controller
 
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'guard_name' => 'required'
+        'name'       => 'required',
+        'guard_name' => 'required',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
-          'message' => $validator->errors()->first()
+          'status'  => false,
+          'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
       if (Role::where('name', $request->name)->exists()) {
         return response()->json([
-          'status' => false,
-          'message' => 'Permission already exists!'
+          'status'  => false,
+          'message' => 'Permission already exists!',
         ])->setStatusCode(400);
       }
 
-      $role = new Role();
-      $role->name = $request->name;
+      $role             = new Role();
+      $role->name       = $request->name;
       $role->guard_name = $request->guard_name;
       $role->save();
 
@@ -81,8 +73,8 @@ class RoleController extends Controller
             $permissions[] = $permission->name;
           } else {
             return response()->json([
-              'status' => false,
-              'message' => 'Permission not found!'
+              'status'  => false,
+              'message' => 'Permission not found!',
             ])->setStatusCode(400);
           }
         }
@@ -93,16 +85,16 @@ class RoleController extends Controller
       DB::commit();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Role added successfully!',
-        'data' => $role
+        'data'    => $role,
       ])->setStatusCode(201);
     } catch (Throwable $e) {
       DB::rollBack();
 
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -115,12 +107,12 @@ class RoleController extends Controller
     try {
       return response()->json([
         'status' => true,
-        'data' => $role
+        'data'   => $role,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -131,8 +123,8 @@ class RoleController extends Controller
   public function edit(Role $role)
   {
     return view('pages.roles.edit', [
-      'title' => 'Edit Role',
-      'role' => $role,
+      'title'       => 'Edit Role',
+      'role'        => $role,
       'permissions' => Permission::all(),
     ]);
   }
@@ -146,25 +138,25 @@ class RoleController extends Controller
 
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'guard_name' => 'required'
+        'name'       => 'required',
+        'guard_name' => 'required',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
-          'message' => $validator->errors()->first()
+          'status'  => false,
+          'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
       if ($request->name != $role->name && Role::where('name', $request->name)->exists()) {
         return response()->json([
-          'status' => false,
-          'message' => 'Role already exists!'
+          'status'  => false,
+          'message' => 'Role already exists!',
         ])->setStatusCode(400);
       }
 
-      $role->name = $request->name;
+      $role->name       = $request->name;
       $role->guard_name = $request->guard_name;
       $role->save();
 
@@ -176,8 +168,8 @@ class RoleController extends Controller
             $permissions[] = $permission->name;
           } else {
             return response()->json([
-              'status' => false,
-              'message' => 'Permission not found!'
+              'status'  => false,
+              'message' => 'Permission not found!',
             ])->setStatusCode(400);
           }
         }
@@ -188,16 +180,16 @@ class RoleController extends Controller
       DB::commit();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Role updated successfully!',
-        'data' => $role
+        'data'    => $role,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       DB::rollBack();
 
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }
@@ -211,13 +203,13 @@ class RoleController extends Controller
       $role->delete();
 
       return response()->json([
-        'status' => true,
-        'message' => 'Role deleted successfully!'
+        'status'  => true,
+        'message' => 'Role deleted successfully!',
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }

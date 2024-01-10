@@ -8,25 +8,25 @@
             <form action="{{ route('api.v2.user.profile.update') }}" id="formUpdateUserProfile" novalidate>
               <div class="card-body">
                 <div class="mb-3">
-                  <label class="form-label required">Name</label>
-                  <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control" required>
+                  <x-label required="true">Name</x-label>
+                  <x-input name="name" value="{{ Auth::user()->name }}" required="true"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label required">Email Address</label>
-                  <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control" required>
+                  <x-label required="true">Email address</x-label>
+                  <x-input type="email" name="email" value="{{ Auth::user()->email }}" required="true"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control">
+                  <x-label>Password</x-label>
+                  <x-input type="password" name="password"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Confirm Password</label>
-                  <input type="password" name="confirm_password" class="form-control">
+                  <x-label>Confirm Password</x-label>
+                  <x-input type="password" name="confirm_password"></x-input>
                 </div>
               </div>
               <div class="card-footer text-end">
-                <a href="{{ route('dashboard') }}" class="btn">Cancel</a>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <x-link href="{{ route('dashboard') }}" class="btn">Cancel</x-link>
+                <x-button type="submit" variant="primary">Submit</x-button>
               </div>
             </form>
           </div>

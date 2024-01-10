@@ -1,4 +1,4 @@
-import {login} from "@/src/auth.src";
+import { login } from "@/src/auth.src";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const formLogin = document.querySelector("#formLogin");
@@ -29,9 +29,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await login(formAction, formData);
 
         if (data.status) {
-          localStorage.setItem("access_token", data.access_token);
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          }).then(() => {
+            localStorage.setItem("access_token", data.access_token);
 
-          window.location.reload();
+            window.location.reload();
+          });
         } else {
           Swal.fire({
             icon: "error",

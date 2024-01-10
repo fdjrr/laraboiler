@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Throwable;
 
 class LoginController extends Controller
 {
@@ -38,7 +38,7 @@ class LoginController extends Controller
       if (!$user || !Hash::check($request->password, $user->password)) {
         return response()->json([
           'status'  => false,
-          'message' => 'Invalid email or password',
+          'message' => 'Invalid Email or Password!',
         ])->setStatusCode(400);
       }
 
@@ -46,10 +46,10 @@ class LoginController extends Controller
 
       return response()->json([
         'status'       => true,
-        'message'      => 'Login success',
+        'message'      => 'Login success!',
         'data'         => Auth::user(),
         'token_type'   => 'Bearer',
-        'access_token' => $user->createToken('auth_token')->plainTextToken,
+        'access_token' => Auth::user()->createToken(config('app.name'))->plainTextToken,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([

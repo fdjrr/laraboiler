@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Throwable;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,13 +23,13 @@ class AuthController extends Controller
       }
 
       return response()->json([
-        'status' => true,
-        'message' => 'Logout successfully!'
+        'status'  => true,
+        'message' => 'Logout successfully!',
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
-        'message' => $e->getMessage()
+        'status'  => false,
+        'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
   }

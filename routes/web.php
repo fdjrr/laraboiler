@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ForgotPassswordController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['guest'])->group(function () {
   Route::prefix('auth')->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('auth.login');
+
+    Route::get('forgot-password', [ForgotPassswordController::class, 'index'])->name('auth.forgot_password');
   });
 });
 

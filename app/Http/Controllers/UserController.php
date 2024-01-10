@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UsersExport;
-use App\Imports\UserImport;
-use App\Models\Entry;
-use App\Models\Permission;
+use Throwable;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
+use App\Models\Entry;
+use App\Models\Permission;
+use App\Imports\UserImport;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Facades\Excel;
-use Throwable;
 
 class UserController extends Controller
 {
@@ -26,11 +26,11 @@ class UserController extends Controller
     ]);
 
     return view('pages.users.index', [
-      'title' => 'Data Users',
-      'users' => $users->paginate($request->entry ?? 15)->withQueryString(),
-      'roles' => Role::all(),
+      'title'       => 'Data Users',
+      'users'       => $users->paginate($request->entry ?? 15)->withQueryString(),
+      'roles'       => Role::all(),
       'permissions' => Permission::all(),
-      'entries' => Entry::all(),
+      'entries'     => Entry::all(),
     ]);
   }
 
@@ -39,11 +39,11 @@ class UserController extends Controller
     try {
       return response()->json([
         'status' => true,
-        'data' => $user,
+        'data'   => $user,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
@@ -52,9 +52,9 @@ class UserController extends Controller
   public function edit(User $user)
   {
     return view('pages.users.edit', [
-      'title' => 'Edit User',
-      'user' => $user,
-      'roles' => Role::all(),
+      'title'       => 'Edit User',
+      'user'        => $user,
+      'roles'       => Role::all(),
       'permissions' => Permission::all(),
     ]);
   }
@@ -65,28 +65,28 @@ class UserController extends Controller
 
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => ($request->password) ? 'required|min:8' : '',
+        'name'             => 'required',
+        'email'            => 'required|email',
+        'password'         => ($request->password) ? 'required|min:8' : '',
         'confirm_password' => 'same:password',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
+          'status'  => false,
           'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
       if ($request->email != $user->email && User::where('email', $request->email)->exists()) {
         return response()->json([
-          'status' => false,
+          'status'  => false,
           'message' => 'Email already exists!',
         ])->setStatusCode(422);
       }
 
-      $user->name = $request->name;
-      $user->email = $request->email;
+      $user->name     = $request->name;
+      $user->email    = $request->email;
       $user->password = ($request->password) ? Hash::make($request->password) : $user->password;
       $user->save();
 
@@ -98,7 +98,7 @@ class UserController extends Controller
             $roles[] = $role;
           } else {
             return response()->json([
-              'status' => false,
+              'status'  => false,
               'message' => 'Role not found!',
             ])->setStatusCode(400);
           }
@@ -114,7 +114,7 @@ class UserController extends Controller
             $permissions[] = $permission;
           } else {
             return response()->json([
-              'status' => false,
+              'status'  => false,
               'message' => 'Permission not found!',
             ])->setStatusCode(400);
           }
@@ -125,15 +125,15 @@ class UserController extends Controller
       DB::commit();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'User updated successfully!',
-        'data' => $user,
+        'data'    => $user,
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       DB::rollBack();
 
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
@@ -145,12 +145,12 @@ class UserController extends Controller
       $user->delete();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'User deleted successfully!',
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
@@ -164,13 +164,13 @@ class UserController extends Controller
       Excel::store(new UsersExport(), $path);
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'Exported successfully!',
-        'result' => Storage::url($path),
+        'result'  => Storage::url($path),
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
@@ -182,22 +182,22 @@ class UserController extends Controller
 
     try {
       $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8',
+        'name'             => 'required',
+        'email'            => 'required|email',
+        'password'         => 'required|min:8',
         'confirm_password' => 'same:password',
       ]);
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
+          'status'  => false,
           'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
 
-      $user = new User();
-      $user->name = $request->name;
-      $user->email = $request->email;
+      $user           = new User();
+      $user->name     = $request->name;
+      $user->email    = $request->email;
       $user->password = Hash::make($request->password);
       $user->save();
 
@@ -209,7 +209,7 @@ class UserController extends Controller
             $roles[] = $role;
           } else {
             return response()->json([
-              'status' => false,
+              'status'  => false,
               'message' => 'Role not found!',
             ])->setStatusCode(400);
           }
@@ -225,7 +225,7 @@ class UserController extends Controller
             $permissions[] = $permission;
           } else {
             return response()->json([
-              'status' => false,
+              'status'  => false,
               'message' => 'Permission not found!',
             ])->setStatusCode(400);
           }
@@ -236,15 +236,15 @@ class UserController extends Controller
       DB::commit();
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'User created successfully!',
-        'data' => $user,
+        'data'    => $user,
       ])->setStatusCode(201);
     } catch (Throwable $e) {
       DB::rollBack();
 
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }
@@ -259,7 +259,7 @@ class UserController extends Controller
 
       if ($validator->fails()) {
         return response()->json([
-          'status' => false,
+          'status'  => false,
           'message' => $validator->errors()->first(),
         ])->setStatusCode(422);
       }
@@ -269,12 +269,12 @@ class UserController extends Controller
       Excel::import(new UserImport(), $file, null, \Maatwebsite\Excel\Excel::CSV);
 
       return response()->json([
-        'status' => true,
+        'status'  => true,
         'message' => 'User imported successfully!',
       ])->setStatusCode(200);
     } catch (Throwable $e) {
       return response()->json([
-        'status' => false,
+        'status'  => false,
         'message' => $e->getMessage(),
       ])->setStatusCode(500);
     }

@@ -8,45 +8,45 @@
             <form action="{{ route('api.v2.user.update', $user->id) }}" id="formUpdateUser" novalidate>
               <div class="card-body">
                 <div class="mb-3">
-                  <label class="form-label required">Name</label>
-                  <input type="text" name="name" value="{{ $user->name }}" class="form-control" required>
+                  <x-label required="true">Name</x-label>
+                  <x-input name="name" value="{{ $user->name }}" required="true"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label required">Email address</label>
-                  <input type="email" name="email" value="{{ $user->email }}" class="form-control" required>
+                  <x-label required="true">Email address</x-label>
+                  <x-input type="email" name="email" value="{{ $user->email }}" required="true"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Roles</label>
-                  <select class="form-select" name="roles[]" id="select-states" multiple>
+                  <x-label required="true">Roles</x-label>
+                  <x-select class="multiple-select" name="roles[]" required="true" multiple="true">
                     <option value="">Choose Role</option>
                     @forelse($roles as $role)
-                      <option value="{{$role->id}}" @selected($user->hasRole($role->name))>{{$role->name}}</option>
+                    <option value="{{$role->id}}" @selected($user->hasRole($role->name))>{{$role->name}}</option>
                     @empty
                     @endforelse
-                  </select>
+                  </x-select>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Permissions</label>
-                  <select name="permissions[]" class="form-select" id="select-states" multiple>
+                  <x-label>Permissions</x-label>
+                  <x-select name="permissions[]" class="multiple-select" multiple="true">
                     <option value="">Choose Permissions</option>
                     @forelse($permissions as $permission)
-                      <option value="{{$permission->id}}" @selected($user->permissions()->pluck('id')->contains($permission->id))>{{$permission->name}}</option>
+                    <option value="{{$permission->id}}" @selected($user->permissions()->pluck('id')->contains($permission->id))>{{$permission->name}}</option>
                     @empty
                     @endforelse
-                  </select>
+                  </x-select>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control">
+                  <x-label>Password</x-label>
+                  <x-input type="password" name="password"></x-input>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Confirm Password</label>
-                  <input type="password" name="confirm_password" class="form-control">
+                  <x-label>Confirm Password</x-label>
+                  <x-input type="password" name="confirm_password"></x-input>
                 </div>
               </div>
               <div class="card-footer text-end">
-                <a href="{{ route('users') }}" class="btn">Cancel</a>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <x-link href="{{ route('users') }}" class="btn">Cancel</x-link>
+                <x-button type="submit" variant="primary">Submit</x-button>
               </div>
             </form>
           </div>

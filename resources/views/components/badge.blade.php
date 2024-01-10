@@ -1,0 +1,1 @@
+<span class="badge bg-{{ $variant }} text-{{ $variant }}-fg">{{ $slot }}</span>
