@@ -11,11 +11,8 @@ class Link extends Component
   /**
    * Create a new component instance.
    */
-  public function __construct(
-    public string $href = '',
-    public string $target = '',
-    public string $class = ''
-  ) {
+  public function __construct()
+  {
     //
   }
 

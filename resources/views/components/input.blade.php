@@ -1,1 +1,1 @@
-<input type="{{ $type }}" name="{{ $name }}" value="{{ $value }}" class="form-control {{ $class }}" placeholder="{{ $placeholder }}" {{ ($required=='true' ) ? 'required' : '' }}>
+<input {{ $attributes->merge(['class' => 'form-control']) }}>

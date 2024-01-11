@@ -17,10 +17,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    formLogin.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      event.submitter.disabled = true;
-      formLogin.classList.add("was-validated");
+    formLogin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      e.submitter.disabled = true;
 
       if (formLogin.checkValidity()) {
         const formAction = formLogin.action;
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      event.submitter.disabled = false;
+      e.submitter.disabled = false;
     });
   }
 });

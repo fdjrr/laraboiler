@@ -10,13 +10,9 @@
             {{ $title }}
           </h2>
         </div>
-        <div class="col-auto ms-auto d-print-none">
-        </div>
+        <div class="col-auto ms-auto d-print-none"></div>
       </div>
     </div>
   </div>
-
-  <div class="page-body">
-
-  </div>
+  <div class="page-body"></div>
 </x-app>

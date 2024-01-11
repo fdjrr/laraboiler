@@ -96,24 +96,26 @@
           <div class="row row-cards">
             <div class="col-sm-6 col-lg-3">
               <x-card class="card-sm">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <span class="bg-primary text-white avatar">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                      </svg>
-                    </span>
-                  </div>
-                  <div class="col">
-                    <div class="font-weight-medium">
-                      Total Users
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      <span class="bg-primary text-white avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                          <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                          <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                        </svg>
+                      </span>
                     </div>
-                    <div class="text-muted">
-                      {{ $users->total() }}
+                    <div class="col">
+                      <div class="font-weight-medium">
+                        Total Users
+                      </div>
+                      <div class="text-muted">
+                        {{ $users->total() }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -127,7 +129,7 @@
             <div class="row d-flex justify-content-end">
               <div class="col-12 col-md-3 col-lg-3">
                 <div class="mb-3">
-                  <label class="form-label">Entry</label>
+                  <x-label>Entry</x-label>
                   <x-select class="select-default" name="entry">
                     <option value="">All</option>
                     @forelse ($entries as $entry)
@@ -160,7 +162,7 @@
         </form>
 
         <div class="col-12">
-          <x-card body="false">
+          <x-card>
             <div class="table-responsive">
               <table class="table table-vcenter card-table table-striped">
                 <thead>
@@ -173,7 +175,7 @@
                 <tbody>
                   @forelse($users as $user)
                   <tr>
-                    <td>{{$user->name}}</td>
+                    <td>{{ $user->name }}</td>
                     <td class="text-muted">{{ $user->email }}</td>
                     <td>
                       <div class="btn-list flex-nowrap">
@@ -228,44 +230,44 @@
       <form action="{{ route('api.v2.user.store') }}" id="formCreateUser" class="needs-validation" novalidate>
         <div class="modal-body">
           <div class="mb-3">
-            <x-label required="true">Name</x-label>
-            <x-input name="name" required="true"></x-input>
+            <x-label class="required">Name</x-label>
+            <x-input type="text" name="name" required></x-input>
           </div>
           <div class="mb-3">
-            <x-label required="true">Email Address</x-label>
-            <x-input type="email" name="email" required="true"></x-input>
+            <x-label class="required">Email Address</x-label>
+            <x-input type="email" name="email" required></x-input>
           </div>
           <div class="mb-3">
-            <x-label required="true">Roles</x-label>
-            <x-select class="multiple-select" name="roles[]" required="true" multiple="true">
+            <x-label class="required">Roles</x-label>
+            <x-select class="multiple-select" name="roles[]" required multiple>
               <option value="">Choose Role</option>
               @forelse($roles as $role)
-              <option value="{{$role->id}}">{{$role->name}}</option>
+              <option value="{{ $role->id }}">{{ $role->name }}</option>
               @empty
               @endforelse
             </x-select>
           </div>
           <div class="mb-3">
             <x-label>Permissions</x-label>
-            <x-select class="multiple-select" name="permissions[]" multiple="true">
+            <x-select class="multiple-select" name="permissions[]" multiple>
               <option value="">Choose Permissions</option>
               @forelse($permissions as $permission)
-              <option value="{{$permission->id}}">{{$permission->name}}</option>
+              <option value="{{ $permission->id }}">{{ $permission->name }}</option>
               @empty
               @endforelse
             </x-select>
           </div>
           <div class="mb-3">
-            <x-label required="true">Password</x-label>
-            <x-input type="password" name="password" required="true"></x-input>
+            <x-label class="required">Password</x-label>
+            <x-input type="password" name="password" required></x-input>
           </div>
           <div class="mb-3">
-            <x-label required="true">Confirm Password</x-label>
-            <x-input type="password" name="confirm_password" required="true"></x-input>
+            <x-label class="required">Confirm Password</x-label>
+            <x-input type="password" name="confirm_password" required></x-input>
           </div>
         </div>
         <div class="modal-footer">
-          <x-button data-bs-dismiss="modal">Cancel</x-button>
+          <x-button type="button" data-bs-dismiss="modal">Cancel</x-button>
           <x-button type="submit" class="ms-auto" variant="primary">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -283,7 +285,7 @@
 
 @can('export user')
 <div class="modal modal-blur fade" id="modal-export-user" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       <div class="modal-status bg-primary"></div>
@@ -305,7 +307,7 @@
           <div class="w-100">
             <div class="row">
               <div class="col">
-                <x-link href="#" class="btn w-100" data-bs-dismiss="modal">Cancel</x-link>
+                <x-button type="button" class="w-100" data-bs-dismiss="modal">Cancel</x-button>
               </div>
               <div class="col">
                 <x-button type="submit" class="w-100" variant="primary">Export User</x-button>
@@ -327,17 +329,16 @@
         <h5 class="modal-title">Import User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="{{ route('api.v2.user.import') }}" id="formImportUser" novalidate>
+      <form action="{{ route('api.v2.user.import') }}" id="formImportUser" class="needs-validation" novalidate>
         <div class="modal-body">
           <div class="mb-3">
-            <x-label required="true">Select CSV File <a href="{{ Storage::url('samples/users.csv') }}">(Download
+            <x-label class="required">Select CSV File <a href="{{ Storage::url('samples/users.csv') }}">(Download
                 Sample)</a></x-label>
-            <label class="form-label required"></label>
-            <x-input type="file" name="csv" required="true"></x-input>
+            <x-input type="file" name="csv" required></x-input>
           </div>
         </div>
         <div class="modal-footer">
-          <x-button data-bs-dismiss="modal">Cancel</x-button>
+          <x-button type="button" data-bs-dismiss="modal">Cancel</x-button>
           <x-button type="submit" class="ms-auto" variant="primary">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

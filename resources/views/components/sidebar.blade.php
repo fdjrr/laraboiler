@@ -41,8 +41,8 @@
     </div>
     <div class="collapse navbar-collapse" id="sidebar-menu">
       <ul class="navbar-nav pt-lg-3">
-        <li class="nav-item {{ Route::is('dashboard') ? 'active' : ''  }}">
-          <a class="nav-link" href="{{ route('dashboard') }}">
+        <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
+          <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -57,8 +57,8 @@
           </a>
         </li>
         @can('view users')
-        <li class="nav-item {{ (Route::is('users') || Route::is('user.*'))  ? 'active' : ''  }}">
-          <a class="nav-link" href="{{ route('users') }}">
+        <li class="nav-item {{ (Route::is('users') || Route::is('user.*')) ? 'active' : '' }}">
+          <a class="nav-link {{ (Route::is('users') || Route::is('user,*')) ? 'active' : '' }}" href="{{ route('users') }}">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -75,8 +75,8 @@
         </li>
         @endcan
         @can('view settings')
-        <li class="nav-item {{ (Route::is('roles') || Route::is('role.*') || Route::is('permissions') || Route::is('permission.*')) ? 'active' : '' }} dropdown">
-          <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="true">
+        <li class="nav-item dropdown {{ (Route::is('roles') || Route::is('role.*') || Route::is('permissions') || Route::is('permission.*')) ? 'active' : '' }}">
+          <a class="nav-link dropdown-toggle {{ (Route::is('roles') || Route::is('role.*') || Route::is('permissions') || Route::is('permission.*')) ? 'active' : '' }}" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="true">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

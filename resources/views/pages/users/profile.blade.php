@@ -3,17 +3,16 @@
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <div class="card">
-            <h3 class="card-header">{{ $title }}</h3>
-            <form action="{{ route('api.v2.user.profile.update') }}" id="formUpdateUserProfile" novalidate>
+          <x-card title="{{ $title }}">
+            <form action="{{ route('api.v2.user.profile.update') }}" id="formUpdateUserProfile" class="needs-validation" novalidate>
               <div class="card-body">
                 <div class="mb-3">
-                  <x-label required="true">Name</x-label>
-                  <x-input name="name" value="{{ Auth::user()->name }}" required="true"></x-input>
+                  <x-label class="required">Name</x-label>
+                  <x-input name="name" value="{{ Auth::user()->name }}" required></x-input>
                 </div>
                 <div class="mb-3">
-                  <x-label required="true">Email address</x-label>
-                  <x-input type="email" name="email" value="{{ Auth::user()->email }}" required="true"></x-input>
+                  <x-label class="required">Email address</x-label>
+                  <x-input type="email" name="email" value="{{ Auth::user()->email }}" required></x-input>
                 </div>
                 <div class="mb-3">
                   <x-label>Password</x-label>
@@ -29,7 +28,7 @@
                 <x-button type="submit" variant="primary">Submit</x-button>
               </div>
             </form>
-          </div>
+          </x-card>
         </div>
       </div>
     </div>

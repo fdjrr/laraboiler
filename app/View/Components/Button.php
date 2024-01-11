@@ -12,9 +12,7 @@ class Button extends Component
    * Create a new component instance.
    */
   public function __construct(
-    public string $type = 'button',
-    public string $variant = '',
-    public string $class = ''
+    public string $variant = ''
   ) {
     //
   }

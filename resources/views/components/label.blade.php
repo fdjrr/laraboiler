@@ -1,1 +1,1 @@
-<label class="form-label {{ ($required=='true') ? 'required' : '' }}">{{ $slot }}</label>
+<label {{ $attributes->merge(['class' => 'form-label']) }}>{{ $slot }}</label>

@@ -11,11 +11,8 @@ class Checkbox extends Component
   /**
    * Create a new component instance.
    */
-  public function __construct(
-    public string $name = '',
-    public string $value = '',
-    public string $checked = 'false',
-  ) {
+  public function __construct()
+  {
     //
   }
 

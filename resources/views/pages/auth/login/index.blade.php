@@ -1,10 +1,10 @@
 <x-auth title="{{ $title }}">
   <x-card class="card-md">
     <h2 class="h2 text-center mb-4">Login to your account</h2>
-    <form action="{{ route('api.v1.auth.login') }}" method="POST" id="formLogin" autocomplete="off" novalidate>
+    <form action="{{ route('api.v1.auth.login') }}" method="POST" class="needs-validation" id="formLogin" autocomplete="off" novalidate>
       <div class="mb-3">
         <x-label required="true">Email Address</x-label>
-        <x-input type="email" name="email" placeholder="your@email.com" required="true"></x-input>
+        <x-input type="email" name="email" placeholder="your@email.com" required></x-input>
       </div>
       <div class="mb-3">
         <x-label required="true">
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="mb-3">
-        <x-checkbox name="remember_me" value="true" checked="true">Remember me on this device</x-checkbox>
+        <x-checkbox name="remember_me" value="true" checked>Remember me on this device</x-checkbox>
       </div>
       <div class="form-footer">
         <x-button type="submit" class="w-100" variant="primary">Sign In</x-button>

@@ -1,1 +1,1 @@
-<span class="badge bg-{{ $variant }} text-{{ $variant }}-fg">{{ $slot }}</span>
+<span {{ $attributes->merge(['class' => "badge bg-$variant text-$variant-fg"]) }}>{{ $slot }}</span>
