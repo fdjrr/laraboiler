@@ -1,4 +1,4 @@
-import {apiJson} from "@/libs/api";
+import { apiJson } from "@/libs/api";
 
 export const login = async (formAction, formData) => {
   try {
@@ -14,4 +14,4 @@ export const logout = async (formAction) => {
   } catch (error) {
     return error.response.data;
   }
-}
+};

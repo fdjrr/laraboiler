@@ -6,3 +6,8 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+.navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item.active, .navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item:active {
+  background: var(--tblr-navbar-active-bg);
+  color: white;
+}

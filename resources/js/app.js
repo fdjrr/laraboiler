@@ -15,4 +15,4 @@ import "@/pages/roles/edit";
 import "@/pages/permissions/create";
 import "@/pages/permissions/edit";
 
-import '@/pages/custom';
+import "@/pages/custom";

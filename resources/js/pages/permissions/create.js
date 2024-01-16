@@ -1,12 +1,12 @@
-import {createPermission} from "@/src/permissions.src"
+import { createPermission } from "@/src/permissions.src";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const formCreatePermission = document.querySelector("#formCreatePermission")
+  const formCreatePermission = document.querySelector("#formCreatePermission");
   if (formCreatePermission) {
     formCreatePermission.addEventListener("submit", async (e) => {
       e.preventDefault();
-      e.submitter.disabled = true
-      formCreatePermission.classList.add("was-validated")
+      e.submitter.disabled = true;
+      formCreatePermission.classList.add("was-validated");
 
       if (formCreatePermission.checkValidity()) {
         Swal.fire({
@@ -19,30 +19,24 @@ document.addEventListener("DOMContentLoaded", async () => {
           confirmButtonText: "Yes, create it!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const formAction = formCreatePermission.action
-            const formData = new FormData(formCreatePermission)
+            const formAction = formCreatePermission.action;
+            const formData = new FormData(formCreatePermission);
 
-            const data = await createPermission(formAction, formData)
+            const data = await createPermission(formAction, formData);
 
             if (data.status) {
               Toast.fire({
                 icon: "success",
                 title: data.message,
               }).then(() => {
-                window.location.href = `/permissions/${data.data.id}/edit`
-              })
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: data.message,
-              })
+                window.location.href = `/permissions/${data.data.id}/edit`;
+              });
             }
           }
-        })
+        });
       }
 
-      e.submitter.disabled = false
-    })
+      e.submitter.disabled = false;
+    });
   }
-})
+});

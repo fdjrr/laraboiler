@@ -1,12 +1,12 @@
-import {createRole} from "@/src/roles.src"
+import { createRole } from "@/src/roles.src";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const formCreateRole = document.querySelector("#formCreateRole")
+  const formCreateRole = document.querySelector("#formCreateRole");
   if (formCreateRole) {
     formCreateRole.addEventListener("submit", async (e) => {
       e.preventDefault();
-      e.submitter.disabled = true
-      formCreateRole.classList.add("was-validated")
+      e.submitter.disabled = true;
+      formCreateRole.classList.add("was-validated");
 
       if (formCreateRole.checkValidity()) {
         Swal.fire({
@@ -19,30 +19,24 @@ document.addEventListener("DOMContentLoaded", async () => {
           confirmButtonText: "Yes, create it!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const formAction = formCreateRole.action
-            const formData = new FormData(formCreateRole)
+            const formAction = formCreateRole.action;
+            const formData = new FormData(formCreateRole);
 
-            const data = await createRole(formAction, formData)
+            const data = await createRole(formAction, formData);
 
             if (data.status) {
               Toast.fire({
                 icon: "success",
                 title: data.message,
               }).then(() => {
-                window.location.href = `/roles/${data.data.id}/edit`
-              })
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: data.message,
-              })
+                window.location.href = `/roles/${data.data.id}/edit`;
+              });
             }
           }
-        })
+        });
       }
 
-      e.submitter.disabled = false
-    })
+      e.submitter.disabled = false;
+    });
   }
-})
+});

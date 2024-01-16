@@ -37,7 +37,42 @@
     <div class="page-wrapper">
       {{ $slot }}
     </div>
+  </div>
 
+  <div class="modal modal-blur fade" id="modal-application-error" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="text-center">
+            <h2 class="text-azure">Terjadi Masalah Dengan Aplikasi.</h2>
+            <p>Harap Hubungi Helpdesk / IT Support.</p>
+          </div>
+          <div class="mt-5">
+            <p>Status : <span class="font-monospace text-danger" id="statusCode"></span></p>
+            <p>Message : <span class="font-monospace text-danger" id="Message"></span></p>
+          </div>
+          <div class="border p-3 rounded bg-light">
+            <p>Method : <span id="Method"></span></p>
+            <p>URL : <span id="URL"></span></p>
+            <p>Headers :</p>
+            <div class="mb-3">
+              <textarea class="form-control" id="Headers"></textarea>
+            </div>
+            <p>Request :</p>
+            <div class="mb-3">
+              <textarea class="form-control" id="Request"></textarea>
+            </div>
+            <p>Response :</p>
+            <div class="mb-3">
+              <textarea class="form-control" id="Response"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <x-button class="ms-auto" data-bs-dismiss="modal">Close</x-button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Libs JS -->

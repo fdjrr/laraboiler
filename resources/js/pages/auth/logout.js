@@ -18,12 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           }).then(() => {
             window.location.reload();
           });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: data.message,
-          });
         }
       });
     });

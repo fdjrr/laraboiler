@@ -15,8 +15,8 @@ import Swal from "sweetalert2";
 window.Swal = Swal.mixin({
   reverseButtons: true,
   allowOutsideClick: false,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
+  // confirmButtonColor: "#3085d6",
+  // cancelButtonColor: "#d33",
   heightAuto: false,
 });
 

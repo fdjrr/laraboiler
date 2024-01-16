@@ -1,4 +1,4 @@
-import { createUser } from "@/src/users.src"
+import { createUser } from "@/src/users.src";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const formCreateUser = document.querySelector("#formCreateUser");
@@ -6,17 +6,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     formCreateUser.addEventListener("submit", async (event) => {
       event.preventDefault();
       event.submitter.disabled = true;
-      formCreateUser.classList.add("was-validated")
+      formCreateUser.classList.add("was-validated");
 
       if (formCreateUser.checkValidity()) {
         Swal.fire({
-          title: 'Are you sure?',
+          title: "Are you sure?",
           text: "You won't be able to revert this!",
-          icon: 'warning',
+          icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, create it!'
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, create it!",
         }).then(async (willCreate) => {
           if (willCreate.isConfirmed) {
             const formAction = formCreateUser.action;
@@ -26,23 +26,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (data.status) {
               Toast.fire({
-                icon: 'success',
+                icon: "success",
                 title: data.message,
               }).then((result) => {
                 window.location.href = `/users/${data.data.id}/edit`;
-              })
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: data.message,
-              })
+              });
             }
           }
-        })
+        });
       }
 
       event.submitter.disabled = false;
-    })
+    });
   }
-})
+});
