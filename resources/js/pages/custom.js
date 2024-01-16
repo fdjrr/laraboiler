@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (needsValidation) {
     needsValidation.forEach((element) => {
       element.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
         element.classList.add("was-validated");
       });
     });
