@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ForgotPassswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -8,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ForgotPassswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,8 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
   Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+  Route::get('qrcode', [DashboardController::class, 'qrcode']);
+  Route::post('verifikasi', [DashboardController::class, 'verifikasi']);
 
   Route::prefix('user')->controller(ProfileController::class)->group(function () {
     Route::get('profile', 'index')->name('user.profile');

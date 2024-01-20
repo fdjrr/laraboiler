@@ -1,18 +1,27 @@
 <x-app title="{{ $title }}">
-  <div class="page-header d-print-none">
-    <div class="container-xl">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-          <div class="page-pretitle">
-            Overview
+  <x-page-header title="{{ $title }}"></x-page-header>
+
+  <x-page-body>
+    <div class="col-12 col-md-4 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          @if(Session::get('success'))
+          <div class="alert alert-success">
+            {{ Session::get('success') }}
           </div>
-          <h2 class="page-title">
-            {{ $title }}
-          </h2>
+          @endif
+
+          <form action="/verifikasi" method="POST">
+            @csrf
+            <div class="mb-3">
+              <label for="" class="form-label">OTP</label>
+              <input type="text" name="secret" class="form-control">
+            </div>
+            <a href="/qrcode" class="btn">Scan QR</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
-        <div class="col-auto ms-auto d-print-none"></div>
       </div>
     </div>
-  </div>
-  <div class="page-body"></div>
+  </x-page-body>
 </x-app>
